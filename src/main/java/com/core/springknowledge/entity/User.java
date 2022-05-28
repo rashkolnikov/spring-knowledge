@@ -1,5 +1,6 @@
 package com.core.springknowledge.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -67,6 +68,89 @@ public class User {
     @Basic(optional = false)
     @Column(name = "verified_token", nullable = false)
     private boolean verifiedToken;
+
+    public static @NonNull UserBuilder.Email builder(){return new Builder();}
+
+    private static class Builder implements
+            UserBuilder.Email,
+            UserBuilder.UUID,
+            UserBuilder.Password,
+            UserBuilder.FirstName,
+            UserBuilder.LastName,
+            UserBuilder.Phone,
+            UserBuilder.BirthDate,
+            UserBuilder.Optionals{
+
+        private final User user;
+
+        private Builder(){ this.user = new User(); }
+
+
+        @Override
+        public @NonNull UserBuilder.UUID email(@NonNull String email) {
+            this.user.setEmail(email);
+            return this;
+        }
+
+        @Override
+        public @NonNull UserBuilder.Password uuid(@NonNull String uuid) {
+            this.user.setUuid(uuid);
+            return this;
+        }
+
+        @Override
+        public @NonNull UserBuilder.FirstName password(@NonNull String password) {
+            this.user.setPassword(password);
+            return this;
+        }
+
+        @Override
+        public @NonNull UserBuilder.LastName firstName(@NonNull String firstName) {
+            this.user.setFirstName(firstName);
+            return this;
+        }
+
+        @Override
+        public @NonNull UserBuilder.Phone lastName(@NonNull String lastName) {
+            this.user.setLastName(lastName);
+            return this;
+        }
+
+        @Override
+        public @NonNull UserBuilder.BirthDate phone(@NonNull String phone) {
+            this.user.setPhone(phone);
+            return this;
+        }
+
+        @Override
+        public @NonNull UserBuilder.Optionals birthdate(@NonNull Instant birthdate) {
+            this.user.setBirthdate(birthdate);
+            return this;
+        }
+
+        @Override
+        public @NonNull UserBuilder.Optionals enabled(boolean enabled) {
+            this.user.setEnabled(enabled);
+            return this;
+        }
+
+        @Override
+        public @NonNull UserBuilder.Optionals verifiedEmail(boolean verifiedEmail) {
+            this.user.setVerifiedEmail(verifiedEmail);
+            return this;
+        }
+
+        @Override
+        public @NonNull UserBuilder.Optionals verifiedToken(boolean verifiedToken) {
+            this.user.setVerifiedToken(verifiedToken);
+            return this;
+        }
+
+        @Override
+        public @NonNull User build() {
+            return this.user;
+        }
+    }
 
     private interface UserBuilder {
         interface Email {
