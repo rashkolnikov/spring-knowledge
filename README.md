@@ -1,3 +1,3 @@
 ## Spring knowledge
 
-In this project we will deal with issues associated with Spring development.
+In this project we will build a Spring application.
